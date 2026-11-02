@@ -1,0 +1,123 @@
+{
+  "lobbies": {
+    "K33NUU": {
+      "code": "K33NUU",
+      "hostId": "p-18903f0f",
+      "players": [
+        {
+          "id": "p-18903f0f",
+          "name": "Alice",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-80a0ac09",
+          "name": "Bob",
+          "color": "#3B82C4",
+          "isReady": true,
+          "isActive": true
+        }
+      ],
+      "phase": "lobby",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {},
+      "winner": null,
+      "createdAt": "2026-09-12T14:39:42.700Z",
+      "updatedAt": "2026-09-12T14:39:42.896Z"
+    },
+    "TVCXFY": {
+      "code": "TVCXFY",
+      "hostId": "p-89e138d9",
+      "players": [
+        {
+          "id": "p-89e138d9",
+          "name": "Alice",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-588079fc",
+          "name": "Bob",
+          "color": "#3B82C4",
+          "isReady": false,
+          "isActive": true
+        },
+        {
+          "id": "p-2da9da73",
+          "name": "Carol",
+          "color": "#4CAF50",
+          "isReady": false,
+          "isActive": true
+        }
+      ],
+      "phase": "lobby",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {},
+      "winner": null,
+      "createdAt": "2026-09-12T14:39:58.745Z",
+      "updatedAt": "2026-09-12T14:39:59.079Z"
+    },
+    "6Y52UA": {
+      "code": "6Y52UA",
+      "hostId": "p-62a344dd",
+      "players": [
+        {
+          "id": "p-62a344dd",
+          "name": "soham",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-60366e7d",
+          "name": "ravi",
+          "color": "#3B82C4",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-8b095a82",
+          "name": "okboi",
+          "color": "#4CAF50",
+          "isReady": true,
+          "isActive": true
+        }
+      ],
+      "phase": "inGame",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {
+        "p-62a344dd": "civilian",
+        "p-60366e7d": "civilian",
+        "p-8b095a82": "imposter"
+      },
+      "winner": null,
+      "createdAt": "2026-09-12T14:46:23.402Z",
+      "updatedAt": "2026-09-12T14:47:06.973Z"
+    },
+    "QCAHBK": {
+      "code": "QCAHBK",
+      "hostId": "p-93fab520",
+      "players": [
+        {
+          "id": "p-93fab520",
+          "name": "d",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        }
+      ],
+      "phase": "lobby",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {},
+      "winner": null,
+      "createdAt": "2026-09-12T14:48:26.610Z",
+      "updatedAt": "2026-09-12T14:48:26.610Z"
+    }
+  }
+}
