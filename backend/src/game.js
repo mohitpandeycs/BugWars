@@ -89,3 +89,22 @@ export function assignRoles(players, imposterCount = 1) {
 
   return roles
 }
+
+export function toLobbyPayload(lobby) {
+  return {
+    code: lobby.code,
+    hostId: lobby.hostId,
+    players: lobby.players,
+    phase: lobby.phase,
+    round: lobby.round,
+    selectedCategory: lobby.selectedCategory,
+    roles: lobby.roles,
+    winner: lobby.winner,
+    createdAt: lobby.createdAt,
+    updatedAt: lobby.updatedAt,
+  }
+}
+
+export function touchLobby(lobby) {
+  lobby.updatedAt = new Date().toISOString()
+}
