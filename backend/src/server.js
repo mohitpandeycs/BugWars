@@ -38,3 +38,45 @@ function findPlayerOrThrow(lobby, playerId) {
 app.get('/api/health', (_req, res) => {
   res.json({ ok: true })
 })
+
+app.post('/api/lobbies', (req, res) => {
+  const name = sanitizeName(req.body?.name)
+
+  const payload = updateState((state) => {
+    cleanupExpiredLobbies(state)
+
+    const code = generateLobbyCode(state.lobbies)
+    const hostId = generatePlayerId()
+    const now = new Date().toISOString()
+
+    const host = {
+      id: hostId,
+      name,
+      color: pickNextPlayerColor([]),
+      isReady: true,
+      isActive: true,
+    }
+
+    const lobby = {
+      code,
+      hostId,
+      players: [host],
+      phase: 'lobby',
+      round: 1,
+      selectedCategory: DEFAULT_CATEGORY,
+      roles: {},
+      winner: null,
+      createdAt: now,
+      updatedAt: now,
+    }
+
+    state.lobbies[code] = lobby
+
+    return {
+      lobby: toLobbyPayload(lobby),
+      playerId: hostId,
+    }
+  })
+
+  res.status(201).json(payload)
+})
