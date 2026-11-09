@@ -108,3 +108,30 @@ export function toLobbyPayload(lobby) {
 export function touchLobby(lobby) {
   lobby.updatedAt = new Date().toISOString()
 }
+
+export function cleanupExpiredLobbies(state) {
+  const now = Date.now()
+  const expireAfterMs = 12 * 60 * 60 * 1000
+
+  Object.entries(state.lobbies).forEach(([code, lobby]) => {
+    const lastUpdated = Date.parse(lobby.updatedAt || lobby.createdAt || 0)
+    if (!Number.isNaN(lastUpdated) && now - lastUpdated > expireAfterMs) {
+      delete state.lobbies[code]
+    }
+  })
+}
+
+export function resolveWinnerAfterMeeting(lobby, ejectedId) {
+  if (ejectedId && lobby.roles[ejectedId] === 'imposter') {
+    lobby.winner = 'civilians'
+    return
+  }
+
+  const activeCivilians = lobby.players.filter(
+    (p) => p.isActive && lobby.roles[p.id] !== 'imposter'
+  ).length
+
+  if (activeCivilians <= 1) {
+    lobby.winner = 'imposter'
+  }
+}
