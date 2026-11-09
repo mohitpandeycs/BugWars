@@ -233,3 +233,25 @@ app.post('/api/lobbies/:code/round-complete', (req, res) => {
 
   res.json(payload)
 })
+
+app.post('/api/lobbies/:code/play-again', (req, res) => {
+  const payload = updateState((state) => {
+    const { lobby } = findLobbyOrThrow(state, req.params.code)
+
+    lobby.phase = 'lobby'
+    lobby.round = 1
+    lobby.selectedCategory = DEFAULT_CATEGORY
+    lobby.roles = {}
+    lobby.winner = null
+    lobby.players = lobby.players.map((player) => ({
+      ...player,
+      isReady: player.id === lobby.hostId,
+      isActive: true,
+    }))
+
+    touchLobby(lobby)
+    return { lobby: toLobbyPayload(lobby) }
+  })
+
+  res.json(payload)
+})
