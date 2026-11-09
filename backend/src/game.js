@@ -39,3 +39,25 @@ export function sanitizeName(input) {
 
   return name
 }
+
+export function generatePlayerId() {
+  return `p-${crypto.randomUUID().slice(0, 8)}`
+}
+
+function randomLobbyCode() {
+  const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  let code = ''
+  for (let i = 0; i < LOBBY_ID_LENGTH; i += 1) {
+    const index = Math.floor(Math.random() * alphabet.length)
+    code += alphabet[index]
+  }
+  return code
+}
+
+export function generateLobbyCode(lobbies) {
+  for (let i = 0; i < 1000; i += 1) {
+    const code = randomLobbyCode()
+    if (!lobbies[code]) return code
+  }
+  throw new HttpError(500, 'Could not generate lobby code')
+}
