@@ -52,6 +52,7 @@ function App() {
   const [winner, setWinner] = useState(null)
   const [round, setRound] = useState(FIRST_ROUND)
   const [remountKey, setRemountKey] = useState(0)
+  const [lobbyPhase, setLobbyPhase] = useState('lobby')
 
   const applyLobbyToState = useCallback(
     (lobby, playerIdHint) => {
