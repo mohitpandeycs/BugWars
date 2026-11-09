@@ -8,3 +8,16 @@ export const TOTAL_ROUNDS = 4
 export const DEFAULT_CATEGORY = 'Data Structures & Algorithms'
 
 const PLAYER_COLORS = ['#D9534F', '#3B82C4', '#4CAF50', '#F0A030', '#EC4C8C']
+
+export class HttpError extends Error {
+  constructor(status, message) {
+    super(message)
+    this.status = status
+  }
+}
+
+export function assertCondition(condition, status, message) {
+  if (!condition) {
+    throw new HttpError(status, message)
+  }
+}
