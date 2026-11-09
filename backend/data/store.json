@@ -61,27 +61,65 @@
       "createdAt": "2026-09-12T14:39:58.745Z",
       "updatedAt": "2026-09-12T14:39:59.079Z"
     },
-    "6Y52UA": {
-      "code": "6Y52UA",
-      "hostId": "p-62a344dd",
+    "ZAL2XL": {
+      "code": "ZAL2XL",
+      "hostId": "p-6ff16d64",
       "players": [
         {
-          "id": "p-62a344dd",
-          "name": "soham",
+          "id": "p-6ff16d64",
+          "name": "Leader",
           "color": "#D9534F",
           "isReady": true,
           "isActive": true
         },
         {
-          "id": "p-60366e7d",
-          "name": "ravi",
+          "id": "p-5f2996ed",
+          "name": "PlayerTwo",
           "color": "#3B82C4",
           "isReady": true,
           "isActive": true
         },
         {
-          "id": "p-8b095a82",
-          "name": "okboi",
+          "id": "p-ed0c0903",
+          "name": "PlayerThree",
+          "color": "#4CAF50",
+          "isReady": true,
+          "isActive": true
+        }
+      ],
+      "phase": "inGame",
+      "round": 2,
+      "selectedCategory": "Security",
+      "roles": {
+        "p-6ff16d64": "civilian",
+        "p-5f2996ed": "civilian",
+        "p-ed0c0903": "imposter"
+      },
+      "winner": null,
+      "createdAt": "2026-09-12T14:53:34.296Z",
+      "updatedAt": "2026-09-12T14:53:34.729Z"
+    },
+    "GCMXZY": {
+      "code": "GCMXZY",
+      "hostId": "p-5de9e1d8",
+      "players": [
+        {
+          "id": "p-5de9e1d8",
+          "name": "d",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-5ea8e218",
+          "name": "ww",
+          "color": "#3B82C4",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-1816ec17",
+          "name": "v",
           "color": "#4CAF50",
           "isReady": true,
           "isActive": true
@@ -91,33 +129,13 @@
       "round": 1,
       "selectedCategory": "Data Structures & Algorithms",
       "roles": {
-        "p-62a344dd": "civilian",
-        "p-60366e7d": "civilian",
-        "p-8b095a82": "imposter"
+        "p-5de9e1d8": "civilian",
+        "p-5ea8e218": "civilian",
+        "p-1816ec17": "imposter"
       },
       "winner": null,
-      "createdAt": "2026-09-12T14:46:23.402Z",
-      "updatedAt": "2026-09-12T14:47:06.973Z"
-    },
-    "QCAHBK": {
-      "code": "QCAHBK",
-      "hostId": "p-93fab520",
-      "players": [
-        {
-          "id": "p-93fab520",
-          "name": "d",
-          "color": "#D9534F",
-          "isReady": true,
-          "isActive": true
-        }
-      ],
-      "phase": "lobby",
-      "round": 1,
-      "selectedCategory": "Data Structures & Algorithms",
-      "roles": {},
-      "winner": null,
-      "createdAt": "2026-09-12T14:48:26.610Z",
-      "updatedAt": "2026-09-12T14:48:26.610Z"
+      "createdAt": "2026-09-12T15:52:22.495Z",
+      "updatedAt": "2026-09-12T15:52:46.309Z"
     }
   }
 }
