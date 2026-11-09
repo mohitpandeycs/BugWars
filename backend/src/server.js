@@ -116,3 +116,11 @@ app.post('/api/lobbies/:code/join', (req, res) => {
 
   res.json(payload)
 })
+
+app.get('/api/lobbies/:code', (req, res) => {
+  const state = readState()
+  cleanupExpiredLobbies(state)
+
+  const { lobby } = findLobbyOrThrow(state, req.params.code)
+  res.json({ lobby: toLobbyPayload(lobby) })
+})
