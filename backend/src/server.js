@@ -130,16 +130,19 @@ app.post('/api/lobbies/:code/toggle-ready', (req, res) => {
 
   const payload = updateState((state) => {
     const { lobby } = findLobbyOrThrow(state, req.params.code)
+
+    assertCondition(playerId.length > 0, 400, 'Player ID is required')
+    assertCondition(lobby.phase === 'lobby', 409, 'Ready status can only change in lobby')
+
     const player = findPlayerOrThrow(lobby, playerId)
+    assertCondition(player.isActive, 409, 'Inactive players cannot update ready status')
 
-    assertCondition(lobby.phase === 'lobby', 409, 'Game has already started')
-
-    player.isReady = !player.isReady
-    touchLobby(lobby)
-
-    return {
-      lobby: toLobbyPayload(lobby),
+    if (player.id !== lobby.hostId) {
+      player.isReady = !player.isReady
     }
+
+    touchLobby(lobby)
+    return { lobby: toLobbyPayload(lobby) }
   })
 
   res.json(payload)
