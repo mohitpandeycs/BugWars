@@ -174,3 +174,20 @@ app.post('/api/lobbies/:code/start', (req, res) => {
 
   res.json(payload)
 })
+
+app.post('/api/lobbies/:code/category', (req, res) => {
+  const category = String(req.body?.category || '').trim()
+
+  const payload = updateState((state) => {
+    const { lobby } = findLobbyOrThrow(state, req.params.code)
+    assertCondition(lobby.phase === 'inGame', 409, 'Game is not in progress')
+    assertCondition(category.length > 0, 400, 'Category is required')
+
+    lobby.selectedCategory = category
+    touchLobby(lobby)
+
+    return { lobby: toLobbyPayload(lobby) }
+  })
+
+  res.json(payload)
+})
