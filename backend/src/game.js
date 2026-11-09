@@ -35,7 +35,7 @@ export function sanitizeName(input) {
     .replace(/\s+/g, ' ')
 
   assertCondition(name.length > 0, 400, 'Name cannot be empty')
-  assertCondition(name.length <= MAX_NAME_LENGTH, `Name must be at most ${MAX_NAME_LENGTH} characters`)
+  assertCondition(name.length <= MAX_NAME_LENGTH, 400, `Name must be at most ${MAX_NAME_LENGTH} characters`)
 
   return name
 }
