@@ -191,3 +191,24 @@ app.post('/api/lobbies/:code/category', (req, res) => {
 
   res.json(payload)
 })
+
+app.post('/api/lobbies/:code/meeting-result', (req, res) => {
+  const ejectedId = req.body?.ejectedId ? String(req.body.ejectedId) : null
+
+  const payload = updateState((state) => {
+    const { lobby } = findLobbyOrThrow(state, req.params.code)
+    assertCondition(lobby.phase === 'inGame', 409, 'Game is not in progress')
+
+    if (ejectedId) {
+      const ejected = findPlayerOrThrow(lobby, ejectedId)
+      ejected.isActive = false
+    }
+
+    resolveWinnerAfterMeeting(lobby, ejectedId)
+    touchLobby(lobby)
+
+    return { lobby: toLobbyPayload(lobby) }
+  })
+
+  res.json(payload)
+})
