@@ -61,3 +61,31 @@ export function generateLobbyCode(lobbies) {
   }
   throw new HttpError(500, 'Could not generate lobby code')
 }
+
+export function pickNextPlayerColor(players) {
+  const usedColors = new Set(players.map((p) => p.color))
+  const freeColor = PLAYER_COLORS.find((color) => !usedColors.has(color))
+  if (freeColor) return freeColor
+
+  return PLAYER_COLORS[Math.floor(Math.random() * PLAYER_COLORS.length)]
+}
+
+export function assignRoles(players, imposterCount = 1) {
+  const safeImposterCount = Math.max(1, Math.min(imposterCount, players.length - 1))
+
+  const shuffled = [...players]
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+
+  const imposterIds = shuffled.slice(0, safeImposterCount).map((p) => p.id)
+  const imposterIdSet = new Set(imposterIds)
+
+  const roles = {}
+  players.forEach((p) => {
+    roles[p.id] = imposterIdSet.has(p.id) ? 'imposter' : 'civilian'
+  })
+
+  return roles
+}
