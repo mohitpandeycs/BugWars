@@ -124,3 +124,23 @@ app.get('/api/lobbies/:code', (req, res) => {
   const { lobby } = findLobbyOrThrow(state, req.params.code)
   res.json({ lobby: toLobbyPayload(lobby) })
 })
+
+app.post('/api/lobbies/:code/toggle-ready', (req, res) => {
+  const playerId = String(req.body?.playerId || '')
+
+  const payload = updateState((state) => {
+    const { lobby } = findLobbyOrThrow(state, req.params.code)
+    const player = findPlayerOrThrow(lobby, playerId)
+
+    assertCondition(lobby.phase === 'lobby', 409, 'Game has already started')
+
+    player.isReady = !player.isReady
+    touchLobby(lobby)
+
+    return {
+      lobby: toLobbyPayload(lobby),
+    }
+  })
+
+  res.json(payload)
+})
