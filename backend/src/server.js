@@ -276,6 +276,10 @@ app.use((error, _req, res, _next) => {
   res.status(500).json({ message: 'Something went wrong' })
 })
 
+app.use((_req, res) => {
+  res.status(404).json({ message: 'Route not found' })
+})
+
 const PORT = Number(process.env.PORT || 3000)
 app.listen(PORT, () => {
   console.log(`Backend listening on http://localhost:${PORT}`)
