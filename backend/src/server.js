@@ -144,3 +144,33 @@ app.post('/api/lobbies/:code/toggle-ready', (req, res) => {
 
   res.json(payload)
 })
+
+app.post('/api/lobbies/:code/start', (req, res) => {
+  const playerId = String(req.body?.playerId || '')
+
+  const payload = updateState((state) => {
+    const { lobby } = findLobbyOrThrow(state, req.params.code)
+    const player = findPlayerOrThrow(lobby, playerId)
+
+    assertCondition(lobby.hostId === playerId, 403, 'Only host can start the game')
+    assertCondition(lobby.players.length >= MIN_PLAYERS_TO_START, 409, 'Not enough players to start')
+
+    const everyoneReady = lobby.players.every((player) => player.isReady)
+    assertCondition(everyoneReady, 409, 'All players must be ready')
+
+    lobby.phase = 'inGame'
+    lobby.round = 1
+    lobby.winner = null
+    lobby.selectedCategory = DEFAULT_CATEGORY
+    lobby.roles = assignRoles(lobby.players)
+    lobby.players = lobby.players.map((player) => ({ ...player, isActive: true }))
+    touchLobby(lobby)
+
+    return {
+      lobby: toLobbyPayload(lobby),
+      myRole: lobby.roles[playerId] || 'civilian',
+    }
+  })
+
+  res.json(payload)
+})
