@@ -80,3 +80,39 @@ app.post('/api/lobbies', (req, res) => {
 
   res.status(201).json(payload)
 })
+
+app.post('/api/lobbies/:code/join', (req, res) => {
+  const name = sanitizeName(req.body?.name)
+
+  const payload = updateState((state) => {
+    cleanupExpiredLobbies(state)
+    const { lobby } = findLobbyOrThrow(state, req.params.code)
+
+    assertCondition(lobby.phase === 'lobby', 409, 'Game has already started')
+    assertCondition(lobby.players.length < MAX_PLAYERS, 409, 'Lobby is full')
+
+    const duplicate = lobby.players.some(
+      (player) => player.name.toLowerCase() === name.toLowerCase()
+    )
+    assertCondition(!duplicate, 409, 'This name is already used in the lobby')
+
+    const playerId = generatePlayerId()
+    const newPlayer = {
+      id: playerId,
+      name,
+      color: pickNextPlayerColor(lobby.players),
+      isReady: false,
+      isActive: true,
+    }
+
+    lobby.players.push(newPlayer)
+    touchLobby(lobby)
+
+    return {
+      lobby: toLobbyPayload(lobby),
+      playerId,
+    }
+  })
+
+  res.json(payload)
+})
