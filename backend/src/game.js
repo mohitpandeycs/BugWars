@@ -21,3 +21,21 @@ export function assertCondition(condition, status, message) {
     throw new HttpError(status, message)
   }
 }
+
+export function normalizeLobbyCode(input) {
+  return String(input || '')
+    .trim()
+    .toUpperCase()
+    .slice(0, LOBBY_ID_LENGTH)
+}
+
+export function sanitizeName(input) {
+  const name = String(input || '')
+    .trim()
+    .replace(/\s+/g, ' ')
+
+  assertCondition(name.length > 0, 400, 'Name cannot be empty')
+  assertCondition(name.length <= MAX_NAME_LENGTH, `Name must be at most ${MAX_NAME_LENGTH} characters`)
+
+  return name
+}
