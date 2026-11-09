@@ -255,3 +255,18 @@ app.post('/api/lobbies/:code/play-again', (req, res) => {
 
   res.json(payload)
 })
+
+app.use((error, _req, res, _next) => {
+  if (error instanceof HttpError) {
+    res.status(error.status).json({ message: error.message })
+    return
+  }
+
+  console.error(error)
+  res.status(500).json({ message: 'Something went wrong' })
+})
+
+const PORT = Number(process.env.PORT || 3000)
+app.listen(PORT, () => {
+  console.log(`Backend listening on http://localhost:${PORT}`)
+})
