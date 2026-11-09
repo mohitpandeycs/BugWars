@@ -153,7 +153,9 @@ app.post('/api/lobbies/:code/start', (req, res) => {
 
   const payload = updateState((state) => {
     const { lobby } = findLobbyOrThrow(state, req.params.code)
-    const player = findPlayerOrThrow(lobby, playerId)
+
+    assertCondition(playerId.length > 0, 400, 'Player ID is required')
+    assertCondition(lobby.phase === 'lobby', 409, 'Game is already in progress')
 
     assertCondition(lobby.hostId === playerId, 403, 'Only host can start the game')
     assertCondition(lobby.players.length >= MIN_PLAYERS_TO_START, 409, 'Not enough players to start')
