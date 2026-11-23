@@ -281,6 +281,11 @@ app.use((error, _req, res, _next) => {
 })
 
 const PORT = Number(process.env.PORT || 3000)
+
+if (!Number.isFinite(PORT) || PORT < 1 || PORT > 65535) {
+  console.error('Invalid PORT value, defaulting to 3000')
+}
+
 app.listen(PORT, () => {
   console.log(`Backend listening on http://localhost:${PORT}`)
 })
