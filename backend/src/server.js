@@ -22,8 +22,14 @@ import {
 const app = express()
 app.use(express.json())
 
-app.use((req, _res, next) => {
-  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`)
+app.use((_req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  if (_req.method === 'OPTIONS') {
+    res.status(204).end()
+    return
+  }
   next()
 })
 
@@ -135,7 +141,6 @@ app.post('/api/lobbies/:code/toggle-ready', (req, res) => {
 
   const payload = updateState((state) => {
     const { lobby } = findLobbyOrThrow(state, req.params.code)
-
     assertCondition(playerId.length > 0, 400, 'Player ID is required')
     assertCondition(lobby.phase === 'lobby', 409, 'Ready status can only change in lobby')
 
@@ -161,7 +166,6 @@ app.post('/api/lobbies/:code/start', (req, res) => {
 
     assertCondition(playerId.length > 0, 400, 'Player ID is required')
     assertCondition(lobby.phase === 'lobby', 409, 'Game is already in progress')
-
     assertCondition(lobby.hostId === playerId, 403, 'Only host can start the game')
     assertCondition(lobby.players.length >= MIN_PLAYERS_TO_START, 409, 'Not enough players to start')
 
@@ -274,10 +278,6 @@ app.use((error, _req, res, _next) => {
 
   console.error(error)
   res.status(500).json({ message: 'Something went wrong' })
-})
-
-app.use((_req, res) => {
-  res.status(404).json({ message: 'Route not found' })
 })
 
 const PORT = Number(process.env.PORT || 3000)
