@@ -50,6 +50,22 @@ app.get('/api/health', (_req, res) => {
   res.json({ ok: true })
 })
 
+app.get('/api/lobbies', (_req, res) => {
+  const state = readState()
+  cleanupExpiredLobbies(state)
+
+  const lobbies = Object.entries(state.lobbies).map(([code, lobby]) => ({
+    code,
+    playerCount: lobby.players.length,
+    phase: lobby.phase,
+    hostId: lobby.hostId,
+    createdAt: lobby.createdAt,
+    updatedAt: lobby.updatedAt,
+  }))
+
+  res.json({ lobbies })
+})
+
 app.post('/api/lobbies', (req, res) => {
   const name = sanitizeName(req.body?.name)
 
