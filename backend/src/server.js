@@ -144,6 +144,17 @@ app.post('/api/lobbies/:code/join', (req, res) => {
   res.json(payload)
 })
 
+app.delete('/api/lobbies/:code', (req, res) => {
+  const payload = updateState((state) => {
+    const code = normalizeLobbyCode(req.params.code)
+    assertCondition(Boolean(state.lobbies[code]), 404, 'Lobby not found')
+    delete state.lobbies[code]
+    return { deleted: true, code }
+  })
+
+  res.json(payload)
+})
+
 app.get('/api/lobbies/:code', (req, res) => {
   const state = readState()
   cleanupExpiredLobbies(state)
