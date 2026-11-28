@@ -12,7 +12,6 @@ const PLAYER_COLORS = ['#D9534F', '#3B82C4', '#4CAF50', '#F0A030', '#EC4C8C']
 export class HttpError extends Error {
   constructor(status, message) {
     super(message)
-    this.name = 'HttpError'
     this.status = status
   }
 }
@@ -101,6 +100,7 @@ export function toLobbyPayload(lobby) {
     selectedCategory: lobby.selectedCategory,
     roles: lobby.roles,
     winner: lobby.winner,
+    meeting: lobby.meeting || null,
     createdAt: lobby.createdAt,
     updatedAt: lobby.updatedAt,
   }
@@ -131,6 +131,29 @@ export function resolveWinnerAfterMeeting(lobby, ejectedId) {
   const activeCivilians = lobby.players.filter(
     (p) => p.isActive && lobby.roles[p.id] !== 'imposter'
   ).length
+
+  if (activeCivilians <= 1) {
+    lobby.winner = 'imposter'
+  }
+}
+
+export function resolveWinnerAfterPlayerLeave(lobby) {
+  if (!['inGame', 'meeting'].includes(lobby.phase)) {
+    return
+  }
+
+  const activeImposters = lobby.players.filter(
+    (p) => p.isActive && lobby.roles[p.id] === 'imposter'
+  ).length
+
+  const activeCivilians = lobby.players.filter(
+    (p) => p.isActive && lobby.roles[p.id] !== 'imposter'
+  ).length
+
+  if (activeImposters === 0) {
+    lobby.winner = 'civilians'
+    return
+  }
 
   if (activeCivilians <= 1) {
     lobby.winner = 'imposter'
