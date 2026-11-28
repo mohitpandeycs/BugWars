@@ -2,6 +2,6 @@
   "name": "Bug-Wars",
   "author" : "Mohit Pandey",
   "app_slug": "bug-wars-backend",
-  "version_description": "Add working backend for bug game",
+  "version_description": "Add working backend for Bug Wars game",
   "preview_type": "pc"
 }

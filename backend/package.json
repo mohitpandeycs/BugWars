@@ -5,15 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "node src/server.js",
-    "start": "node src/server.js",
-    "lint": "eslint src",
-    "test": "node --test"
+    "start": "node src/server.js"
   },
   "dependencies": {
     "express": "^4.21.2"
-  },
-  "devDependencies": {
-    "@eslint/js": "^10.6.0",
-    "eslint": "^10.6.0"
   }
 }
