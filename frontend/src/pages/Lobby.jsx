@@ -6,7 +6,16 @@ import CloudBackground from '../components/CloudBackground'
 import { LOBBY_CLOUDS } from '../constants/cloudPresets'
 import { MIN_PLAYERS_TO_START, MAX_PLAYERS } from '../constants/gameConfig'
 
-function Lobby({ lobbyCode, players = [], isHost = false, isReady = false, onToggleReady, onStartGame, starting = false }) {
+function Lobby({
+    lobbyCode,
+    players = [],
+    isHost = false,
+    isReady = false,
+    onToggleReady,
+    onStartGame,
+    starting = false,
+    actionError = '',
+}) {
     const [copyStatus, setCopyStatus] = useState('idle') // 'idle' | 'copied' | 'failed'
     const copyTimeoutRef = useRef(null)
 
@@ -96,6 +105,12 @@ function Lobby({ lobbyCode, players = [], isHost = false, isReady = false, onTog
                 <Button variant={isReady ? 'outline' : 'green'} onClick={onToggleReady}>
                     {isReady ? 'CANCEL READY' : 'READY!'}
                 </Button>
+            )}
+
+            {actionError && (
+                <p className="font-pixel text-[10px] text-pixel-red text-center max-w-sm" role="alert">
+                    {actionError}
+                </p>
             )}
         </div>
     )
