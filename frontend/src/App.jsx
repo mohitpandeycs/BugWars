@@ -20,6 +20,7 @@ import {
   completeRound,
   playAgain,
 } from './services/gameApi'
+import { savePlayerSession, loadPlayerSession, clearPlayerSession } from './services/lobbyService'
 
 const FIRST_ROUND = 1
 const WINNER_CIVILIANS = 'civilians'
@@ -64,6 +65,7 @@ function App() {
       setPlayers(lobby.players || [])
       setAllRoles(lobby.roles || {})
       setWinner(lobby.winner || null)
+      setLobbyPhase(lobby.phase || 'lobby')
 
       if (typeof lobby.round === 'number') {
         setRound(lobby.round)
@@ -94,6 +96,7 @@ function App() {
     setPendingLobbyId('')
     setJoinError('')
     setSubmitError('')
+    clearPlayerSession()
   }, [])
 
   const refreshLobby = useCallback(async () => {
@@ -102,18 +105,74 @@ function App() {
     try {
       const data = await getLobby(lobbyCode)
       applyLobbyToState(data.lobby)
+      setSubmitError('')
     } catch {
       // keep UI stable if a transient request fails
     }
   }, [lobbyCode, applyLobbyToState])
 
   useEffect(() => {
+    const session = loadPlayerSession()
+    if (!session?.lobbyCode || !session?.playerId) return
+
+    let active = true
+
+    getLobby(session.lobbyCode)
+      .then((data) => {
+        if (!active) return
+
+        setMyPlayerId(session.playerId)
+        applyLobbyToState(data.lobby, session.playerId)
+
+        if (data.lobby?.phase === 'inGame') {
+          setPage(PAGES.ROLE_REVEAL)
+        } else {
+          setPage(PAGES.LOBBY)
+        }
+      })
+      .catch(() => {
+        clearPlayerSession()
+      })
+
+    return () => {
+      active = false
+    }
+  }, [applyLobbyToState])
+
+  useEffect(() => {
     if (!lobbyCode || !SYNC_PAGES.has(page)) return
 
     refreshLobby()
-    const timer = setInterval(refreshLobby, 2000)
+    const timer = setInterval(refreshLobby, 1500)
     return () => clearInterval(timer)
   }, [lobbyCode, page, refreshLobby])
+
+  useEffect(() => {
+    if (!lobbyCode) return
+
+    if (winner && page !== PAGES.RESULTS) {
+      setPage(PAGES.RESULTS)
+      return
+    }
+
+    if (lobbyPhase === 'inGame' && page === PAGES.LOBBY) {
+      setPage(PAGES.ROLE_REVEAL)
+      return
+    }
+
+    const activePages = [
+      PAGES.ROLE_REVEAL,
+      PAGES.VOTE_CATEGORY,
+      PAGES.GAME_ROUND,
+      PAGES.EMERGENCY_MEETING,
+      PAGES.RESULTS,
+    ]
+
+    if (lobbyPhase === 'lobby' && activePages.includes(page)) {
+      setRemountKey((prev) => prev + 1)
+      setPage(PAGES.LOBBY)
+    }
+  }, [lobbyCode, lobbyPhase, winner, page])
 
   const handleCreateGame = () => {
     setPendingLobbyId('')
@@ -154,6 +213,7 @@ function App() {
         const data = await createLobby(trimmedName)
         setMyPlayerId(data.playerId)
         applyLobbyToState(data.lobby, data.playerId)
+        savePlayerSession({ lobbyCode: data.lobby?.code, playerId: data.playerId, name: trimmedName })
         setPage(PAGES.LOBBY)
       } else {
         if (!pendingLobbyId) {
@@ -164,6 +224,7 @@ function App() {
         const data = await joinLobby(pendingLobbyId, trimmedName)
         setMyPlayerId(data.playerId)
         applyLobbyToState(data.lobby, data.playerId)
+        savePlayerSession({ lobbyCode: data.lobby?.code, playerId: data.playerId, name: trimmedName })
         setPage(PAGES.LOBBY)
       }
     } catch (error) {
@@ -179,6 +240,7 @@ function App() {
     try {
       const data = await toggleReady(lobbyCode, myPlayerId)
       applyLobbyToState(data.lobby)
+      setSubmitError('')
     } catch (error) {
       setSubmitError(error.message || 'Could not update ready state')
     }
@@ -205,11 +267,11 @@ function App() {
     }
   }
 
-  const handleRoleRevealComplete = () => {
+  const handleRoleRevealComplete = useCallback(() => {
     setPage(PAGES.VOTE_CATEGORY)
-  }
+  }, [])
 
-  const handleVoteComplete = async (category) => {
+  const handleVoteComplete = useCallback(async (category) => {
     const finalCategory = category || DEFAULT_CATEGORY
     setSelectedCategory(finalCategory)
 
@@ -222,13 +284,13 @@ function App() {
     }
 
     setPage(PAGES.GAME_ROUND)
-  }
+  }, [lobbyCode])
 
-  const handleEmergencyMeeting = () => {
+  const handleEmergencyMeeting = useCallback(() => {
     setPage(PAGES.EMERGENCY_MEETING)
-  }
+  }, [])
 
-  const handleMeetingComplete = async (ejectedId) => {
+  const handleMeetingComplete = useCallback(async (ejectedId) => {
     const normalizedEjectedId = ejectedId || null
 
     try {
@@ -247,9 +309,9 @@ function App() {
 
     setRemountKey((prev) => prev + 1)
     setPage(PAGES.GAME_ROUND)
-  }
+  }, [lobbyCode, applyLobbyToState])
 
-  const handleAllTestsPassed = async () => {
+  const handleAllTestsPassed = useCallback(async () => {
     try {
       if (lobbyCode) {
         const data = await completeRound(lobbyCode)
@@ -274,9 +336,9 @@ function App() {
     }
 
     setRound(nextRound)
-  }
+  }, [lobbyCode, applyLobbyToState, round])
 
-  const handlePlayAgain = async () => {
+  const handlePlayAgain = useCallback(async () => {
     if (lobbyCode) {
       try {
         await playAgain(lobbyCode)
@@ -287,7 +349,7 @@ function App() {
 
     resetGameState()
     setPage(PAGES.HOME)
-  }
+  }, [lobbyCode, resetGameState])
 
   const isHost = myPlayerId !== '' && myPlayerId === hostId
   const myPlayer = players.find((player) => player.id === myPlayerId)
@@ -343,6 +405,7 @@ function App() {
           onToggleReady={handleToggleReady}
           onStartGame={handleStartGame}
           starting={starting}
+          actionError={submitError}
         />
       )}
 
@@ -361,6 +424,10 @@ function App() {
       {page === PAGES.GAME_ROUND && (
         <GameRound
           key={`${round}-${remountKey}`}
+          lobbyCode={lobbyCode}
+          myPlayerId={myPlayerId}
+          myPlayerName={myPlayer?.name || 'You'}
+          myRole={myRole || 'civilian'}
           category={selectedCategory}
           players={displayPlayers}
           round={round}
