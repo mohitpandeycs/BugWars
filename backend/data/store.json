@@ -99,27 +99,27 @@
       "createdAt": "2026-09-12T14:53:34.296Z",
       "updatedAt": "2026-09-12T14:53:34.729Z"
     },
-    "GCMXZY": {
-      "code": "GCMXZY",
-      "hostId": "p-5de9e1d8",
+    "CZ7GTD": {
+      "code": "CZ7GTD",
+      "hostId": "p-a692af51",
       "players": [
         {
-          "id": "p-5de9e1d8",
-          "name": "d",
+          "id": "p-a692af51",
+          "name": "Host",
           "color": "#D9534F",
           "isReady": true,
           "isActive": true
         },
         {
-          "id": "p-5ea8e218",
-          "name": "ww",
+          "id": "p-a717efaf",
+          "name": "P2",
           "color": "#3B82C4",
           "isReady": true,
           "isActive": true
         },
         {
-          "id": "p-1816ec17",
-          "name": "v",
+          "id": "p-1f2e8147",
+          "name": "P3",
           "color": "#4CAF50",
           "isReady": true,
           "isActive": true
@@ -129,13 +129,296 @@
       "round": 1,
       "selectedCategory": "Data Structures & Algorithms",
       "roles": {
-        "p-5de9e1d8": "civilian",
-        "p-5ea8e218": "civilian",
-        "p-1816ec17": "imposter"
+        "p-a692af51": "civilian",
+        "p-a717efaf": "civilian",
+        "p-1f2e8147": "imposter"
       },
       "winner": null,
-      "createdAt": "2026-09-12T15:52:22.495Z",
-      "updatedAt": "2026-09-12T15:52:46.309Z"
+      "createdAt": "2026-09-12T16:01:26.222Z",
+      "updatedAt": "2026-09-12T16:01:26.510Z"
+    },
+    "ZYJ93F": {
+      "code": "ZYJ93F",
+      "hostId": "p-08725268",
+      "players": [
+        {
+          "id": "p-08725268",
+          "name": "HostOne",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-0f08e8c9",
+          "name": "Alice",
+          "color": "#3B82C4",
+          "isReady": false,
+          "isActive": true
+        },
+        {
+          "id": "p-53fcdaa2",
+          "name": "Bob",
+          "color": "#4CAF50",
+          "isReady": false,
+          "isActive": true
+        },
+        {
+          "id": "p-54fdca98",
+          "name": "Cara",
+          "color": "#F0A030",
+          "isReady": false,
+          "isActive": true
+        },
+        {
+          "id": "p-c7981970",
+          "name": "Dan",
+          "color": "#EC4C8C",
+          "isReady": false,
+          "isActive": true
+        }
+      ],
+      "phase": "lobby",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {},
+      "winner": null,
+      "createdAt": "2026-09-12T16:05:26.565Z",
+      "updatedAt": "2026-09-12T16:05:27.287Z"
+    },
+    "9757ER": {
+      "code": "9757ER",
+      "hostId": "p-ca9c37b0",
+      "players": [
+        {
+          "id": "p-ca9c37b0",
+          "name": "Host",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-322258d8",
+          "name": "A",
+          "color": "#3B82C4",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-48eb3fce",
+          "name": "B",
+          "color": "#4CAF50",
+          "isReady": true,
+          "isActive": true
+        }
+      ],
+      "phase": "inGame",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {
+        "p-ca9c37b0": "civilian",
+        "p-322258d8": "imposter",
+        "p-48eb3fce": "civilian"
+      },
+      "winner": null,
+      "createdAt": "2026-09-12T16:14:09.609Z",
+      "updatedAt": "2026-09-12T16:14:09.894Z"
+    },
+    "N8M234": {
+      "code": "N8M234",
+      "hostId": "p-5b4336b3",
+      "players": [
+        {
+          "id": "p-5b4336b3",
+          "name": "Host",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-f86888ee",
+          "name": "Alice",
+          "color": "#3B82C4",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-808360df",
+          "name": "Bob",
+          "color": "#4CAF50",
+          "isReady": true,
+          "isActive": true
+        }
+      ],
+      "phase": "inGame",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {
+        "p-5b4336b3": "civilian",
+        "p-f86888ee": "civilian",
+        "p-808360df": "imposter"
+      },
+      "winner": null,
+      "createdAt": "2026-09-12T16:51:12.850Z",
+      "updatedAt": "2026-09-12T16:51:13.134Z"
+    },
+    "2SWTJG": {
+      "code": "2SWTJG",
+      "hostId": "p-718cb6a6",
+      "players": [
+        {
+          "id": "p-718cb6a6",
+          "name": "Host",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-a10e01ef",
+          "name": "Alice",
+          "color": "#3B82C4",
+          "isReady": true,
+          "isActive": false
+        }
+      ],
+      "phase": "inGame",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {
+        "p-718cb6a6": "imposter",
+        "p-a10e01ef": "civilian"
+      },
+      "winner": "imposter",
+      "meeting": {
+        "id": "meeting-d3109a65-24b5-45cc-a003-075da790df5f",
+        "callerId": "p-a10e01ef",
+        "callerName": "Alice",
+        "votes": {
+          "p-718cb6a6": "p-a10e01ef",
+          "p-a10e01ef": "skip"
+        },
+        "status": "finalized",
+        "result": {
+          "ejectedId": "p-a10e01ef",
+          "resolvedAt": "2026-09-12T16:52:12.933Z"
+        },
+        "startedAt": "2026-09-12T16:52:12.839Z",
+        "finalizedAt": "2026-09-12T16:52:13.001Z"
+      },
+      "createdAt": "2026-09-12T16:52:12.485Z",
+      "updatedAt": "2026-09-12T16:52:13.126Z"
+    },
+    "7BQCYG": {
+      "code": "7BQCYG",
+      "hostId": "p-b8f6dd52",
+      "players": [
+        {
+          "id": "p-b8f6dd52",
+          "name": "Host",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-19ec8feb",
+          "name": "Alice",
+          "color": "#3B82C4",
+          "isReady": true,
+          "isActive": false
+        }
+      ],
+      "phase": "inGame",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {
+        "p-b8f6dd52": "civilian",
+        "p-19ec8feb": "imposter"
+      },
+      "winner": "civilians",
+      "meeting": {
+        "id": "meeting-f4153e59-120b-4c3d-855a-c7c6308a4a78",
+        "callerId": "p-19ec8feb",
+        "callerName": "Alice",
+        "votes": {
+          "p-b8f6dd52": "p-19ec8feb",
+          "p-19ec8feb": "skip"
+        },
+        "status": "finalized",
+        "result": {
+          "ejectedId": "p-19ec8feb",
+          "resolvedAt": "2026-09-12T16:57:40.778Z"
+        },
+        "startedAt": "2026-09-12T16:57:40.684Z",
+        "finalizedAt": "2026-09-12T16:57:40.848Z"
+      },
+      "createdAt": "2026-09-12T16:57:40.327Z",
+      "updatedAt": "2026-09-12T16:57:40.921Z"
+    },
+    "QDUC9M": {
+      "code": "QDUC9M",
+      "hostId": "p-ed810e2b",
+      "players": [
+        {
+          "id": "p-ed810e2b",
+          "name": "Host",
+          "color": "#D9534F",
+          "isReady": true,
+          "isActive": true
+        },
+        {
+          "id": "p-611f8984",
+          "name": "Alice",
+          "color": "#3B82C4",
+          "isReady": true,
+          "isActive": false
+        }
+      ],
+      "phase": "inGame",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {
+        "p-ed810e2b": "imposter",
+        "p-611f8984": "civilian"
+      },
+      "winner": "imposter",
+      "meeting": {
+        "id": "meeting-8866bfff-b9e8-453d-bffc-e5ba28676483",
+        "callerId": "p-611f8984",
+        "callerName": "Alice",
+        "votes": {
+          "p-ed810e2b": "p-611f8984",
+          "p-611f8984": "skip"
+        },
+        "status": "finalized",
+        "result": {
+          "ejectedId": "p-611f8984",
+          "resolvedAt": "2026-09-12T16:58:30.218Z"
+        },
+        "startedAt": "2026-09-12T16:58:30.123Z",
+        "finalizedAt": "2026-09-12T16:58:30.298Z"
+      },
+      "createdAt": "2026-09-12T16:58:29.770Z",
+      "updatedAt": "2026-09-12T16:58:30.385Z"
+    },
+    "7HGE69": {
+      "code": "7HGE69",
+      "hostId": "p-d76ccd8f",
+      "players": [
+        {
+          "id": "p-d76ccd8f",
+          "name": "c",
+          "color": "#4CAF50",
+          "isReady": true,
+          "isActive": true
+        }
+      ],
+      "phase": "lobby",
+      "round": 1,
+      "selectedCategory": "Data Structures & Algorithms",
+      "roles": {},
+      "winner": null,
+      "meeting": null,
+      "createdAt": "2026-09-12T17:02:01.095Z",
+      "updatedAt": "2026-09-12T17:06:38.185Z"
     }
   }
 }
